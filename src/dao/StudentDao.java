@@ -11,7 +11,7 @@ import bean.Student;
 
 public class StudentDao extends Dao {
     private String baseSql = "SELECT * FROM student WHERE 1=1";
-
+    //aaa
     // 学生情報を取得
     public Student get(String no) {
         Student student = null;
