@@ -8,8 +8,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.security.auth.Subject;
-
 import bean.School;
 import bean.TestListSubject;
 
@@ -41,15 +39,15 @@ public class TestListSubjectDao extends Dao {
         return new ArrayList<>(map.values());
     }
 
-    public List<TestListSubject> filter(int entYear, String classNum, Subject subject, School school) {
+    public List<TestListSubject> filter(int entYear, String classNum, bean.Subject subject, School school) {
         List<TestListSubject> list = new ArrayList<>();
         try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(baseSql)) {
 
             stmt.setInt(1, entYear);
             stmt.setString(2, classNum);
-            stmt.setString(3, subject.getCd());
-            stmt.setString(4, school.getCd());
+            stmt.setObject(3, subject);
+            stmt.setObject(4, school);
 
             try (ResultSet rs = stmt.executeQuery()) {
                 list = postFilter(rs);
