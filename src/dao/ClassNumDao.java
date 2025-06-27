@@ -14,18 +14,18 @@ public class ClassNumDao extends Dao {
     /**
      * 指定されたクラス番号と学校に一致するClassNumインスタンスを1件取得する
      */
-    public ClassNum get(String class_num, School school) {
+    public ClassNum get(String classnum, School school) {
         ClassNum cn = null;
 
         try (Connection con = getConnection()) {
             String sql = "SELECT * FROM class_num WHERE class_num = ? AND school_cd = ?";
             PreparedStatement st = con.prepareStatement(sql);
-            st.setString(1, class_num);
+            st.setString(1, classnum);
             st.setString(2, school.getCd());
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
-                cn = new ClassNum(rs.getString("class_num"), school);
+                cn = new ClassNum(rs.getString("classnum"), school);
             }
 
             st.close();

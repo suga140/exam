@@ -159,6 +159,7 @@ public class StudentDao extends Dao {
     // ResultSet から Student を構築
     private Student toStudent(ResultSet rs, School school) throws Exception {
         Student s = new Student();
+        s.setNo(rs.getString("no"));
         s.setName(rs.getString("name"));
         s.setEntYear(rs.getInt("ent_year"));
         s.setClassNum(rs.getString("class_num"));
@@ -166,4 +167,25 @@ public class StudentDao extends Dao {
         s.setSchool(school);
         return s;
     }
+    // 学生更新
+    public void update(Student student) throws Exception {
+        Connection con = getConnection();
+        PreparedStatement st = null;
+        try {
+            st = con.prepareStatement(
+                "UPDATE student SET name=?, class_num=?, is_attend=? WHERE ent_year=? AND no=?"
+            );
+            st.setString(1, student.getName());
+            st.setString(2, student.getClassNum());
+            st.setBoolean(3, student.isAttend());
+            st.setInt(4, student.getEntYear());
+            st.setString(5, student.getNo());
+
+            st.executeUpdate();
+        } finally {
+            if (st != null) st.close();
+            if (con != null) con.close();
+        }
+    }
+
 }
