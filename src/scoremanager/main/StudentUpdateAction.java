@@ -1,26 +1,45 @@
 package scoremanager.main;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.School;
 import bean.Student;
+import bean.Teacher;
+import dao.ClassNumDao;
+import dao.SchoolDao;
 import dao.StudentDao;
+import tool.Action;
 
-public class StudentUpdateAction {
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+public class StudentUpdateAction extends Action {
+	@Override
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-//        String no = request.getParameter("no");
-        String no = "2225001";
+        String no = request.getParameter("no");
+
 
         StudentDao dao = new StudentDao();
         Student student = dao.get(no);
-        System.out.println("取得した学生: " + student);
+
 
         if (student == null) {
             throw new Exception("該当する学生が見つかりませんでした");
         }
 
+        Teacher teacher = (Teacher) request.getSession().getAttribute("user");
+        String schoolCd = teacher.getSchool().getCd();
+        SchoolDao schooldao = new SchoolDao();
+        School school = schooldao.get(schoolCd);
+
+        ClassNumDao classDao = new ClassNumDao();
+        List<String> classList = classDao.filter(school);
+        request.setAttribute("classList", classList);
+
+
         request.setAttribute("student", student);
-        return "scoremanager/main/student_update.jsp";
+        request.setAttribute("classList", classList);
+        request.getRequestDispatcher("student_update.jsp").forward(request, response);
     }
 }

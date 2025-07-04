@@ -26,11 +26,27 @@ public class StudentDao extends Dao {
 
             ResultSet rs = st.executeQuery();
 
-            if (rs.next()) {
-                SchoolDao schoolDao = new SchoolDao();
-                School school = schoolDao.get(rs.getString("school_cd"));
-                student = toStudent(rs, school);
-            }
+			if (rs.next()) {
+			    String schoolCd = rs.getString("school_cd");
+			    System.out.println("取得した school_cd: " + schoolCd);
+
+			    School school = null;
+			    if (schoolCd != null && !schoolCd.isEmpty()) {
+			        SchoolDao schoolDao = new SchoolDao();
+			        school = schoolDao.get(schoolCd);
+			    }
+
+			    student = toStudent(rs, school);
+
+			    // デバッグ用に student の内容を表示
+			    System.out.println("取得した学生: ");
+			    System.out.println("  no: " + student.getNo());
+			    System.out.println("  name: " + student.getName());
+			    System.out.println("  entYear: " + student.getEntYear());
+			    System.out.println("  classNum: " + student.getClassNum());
+			    System.out.println("  isattend: " + student.isAttend());
+			    System.out.println("  school: " + (student.getSchool() != null ? student.getSchool().getCd() : "null"));
+			}
 
         } catch (Exception e) {
             e.printStackTrace();

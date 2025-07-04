@@ -22,7 +22,7 @@ public class StudentUpdateExecuteAction extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         // パラメータ取得
-        String entYear = request.getParameter("ent_year");
+        String entYear = request.getParameter("entyear");
         String no = request.getParameter("no");
         String name = request.getParameter("name");
         String classNum = request.getParameter("class_num");

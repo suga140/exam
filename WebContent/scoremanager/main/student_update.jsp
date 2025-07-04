@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <c:import url="/common/base.jsp">
 	<c:param name="title">
 		得点管理システム
@@ -9,13 +10,12 @@
 
 	<c:param name="scripts"></c:param>
 
-  <c:param name="content">
+    <c:param name="content">
+
     <section class="me-4">
       <h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生情報変更</h2>
-	<p>student: ${student}</p>
-	<p>name: ${student.name}</p>
-	<p>entYear: ${student.entYear}</p>
-      <form action="/kadai/scoremanager/main/StudentUpdateExecute.action" method="post">
+
+      <form action="/scoremanager/main/StudentUpdateExecute.action" method="post">
         <!-- 入学年度 -->
         <div class="row text-center px-4 fs-3 my-2">
           <label for="entYear">入学年度</label>
@@ -36,26 +36,28 @@
 
 		<!-- クラス -->
 		<div class="row text-center px-4 fs-3 my-2">
-		  <label for="classNum">クラス</label>
-		  <select name="classNum" id="classNum">
-		    <c:forEach var="c" items="${classList}">
-		      <option value="${c.classNum}" <c:if test="${c.classNum == student.classNum}">selected</c:if>>${c.classNum}</option>
-		    </c:forEach>
-		  </select>
+			<label for="name">クラス</label>
+			<select name="classNum" id="classNum">
+			  <c:forEach var="c" items="${classList}">
+			    <option value="${c}" <c:if test="${c eq student.classNum}">selected</c:if>>${c}</option>
+			  </c:forEach>
+			</select>
+
 		</div>
 
 		<!-- 在学中 -->
 		<div class="row text-center px-4 fs-3 my-2">
-		  <label for="is_attend">在学中</label>
-		  <input type="checkbox" id="is_attend" name="is_attend" value="true"
-		         <c:if test="${student.isAttend}">checked</c:if>>
+		  <label for="isattend">在学中</label>
+		  <input type="checkbox" id="isattend" name="isattend" value="true"
+		         <c:if test="${student.attend}">checked</c:if>>
 		</div>
+
 
 
         <!-- ボタン -->
         <div class="text-center my-4">
           <input type="submit" name="login" value="変更" class="btn btn-primary px-4">
-          <a href="/scoremanager/student/list.action" class="btn btn-link">戻る</a>
+          <a href="/scoremanager/main/StudentList.action" class="btn btn-link">戻る</a>
         </div>
       </form>
     </section>
