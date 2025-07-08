@@ -46,8 +46,8 @@ public class TestListSubjectDao extends Dao {
 
             stmt.setInt(1, entYear);
             stmt.setString(2, classNum);
-            stmt.setObject(3, subject);
-            stmt.setObject(4, school);
+            stmt.setString(3, subject.getCd());
+            stmt.setString(4, school.getCd());
 
             try (ResultSet rs = stmt.executeQuery()) {
                 list = postFilter(rs);
@@ -57,4 +57,5 @@ public class TestListSubjectDao extends Dao {
         }
         return list;
     }
+
 }
