@@ -56,6 +56,6 @@ public class StudentUpdateExecuteAction extends HttpServlet {
 
         // 完了画面へ
         request.setAttribute("student", student);
-        request.getRequestDispatcher("/view/scoremanager/student_update_done.jsp").forward(request, response);
+        request.getRequestDispatcher("student_update_done.jsp").forward(request, response);
     }
 }

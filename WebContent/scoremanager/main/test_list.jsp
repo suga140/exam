@@ -57,7 +57,7 @@
 				<div>
 					<label class="form-label">学生番号</label>
 					<input type="text" name="f4" class="form-control form-control-sm" value="${f4}" maxlength="10"
-						required placeholder="学生番号を入力してください" />
+						placeholder="学生番号を入力してください" />
 				</div>
 				<div class="align-self-end">
 					<button type="submit" name="action" value="studentSearch" class="btn btn-sm btn-secondary">検索</button>
@@ -70,52 +70,52 @@
 			<input type="hidden" name="f" value="sj" />
 			<input type="hidden" name="f" value="st" />
 		</form>
+				<c:if test="${f == 'sj'}">
+		  <!-- 科目名 -->
+		  <div class="fw-bold mb-2">
+		    科目：<c:forEach var="subject" items="${subjectList}">
+		      <c:if test="${subject.cd == f3}">
+		        ${subject.name}
+		      </c:if>
+		    </c:forEach>
+		  </div>
+
+		  <!-- 成績一覧テーブル -->
+		  <table class="table table-bordered table-striped">
+		    <thead class="table-secondary">
+		      <tr>
+		        <th>入学年度</th>  <!-- ③ -->
+		        <th>クラス</th>    <!-- ④ -->
+		        <th>学生番号</th>  <!-- ⑤ -->
+		        <th>氏名</th>      <!-- ⑥ -->
+		        <th>1回</th>       <!-- ⑦ -->
+		        <th>2回</th>       <!-- ⑧ -->
+		      </tr>
+		    </thead>
+		    <tbody>
+		      <c:forEach var="row" items="${subjectScoreList}">
+		        <tr>
+		          <td>${row.entYear}</td>                <!-- ⑨ -->
+		          <td>${row.classNum}</td>               <!-- ⑩ -->
+		          <td>${row.studentNo}</td>              <!-- ⑪ -->
+		          <td>${row.studentName}</td>            <!-- ⑫ -->
+		          <td>
+		            <c:choose>
+		              <c:when test="${row.points[1] != null}">${row.points[1]}</c:when>
+		              <c:otherwise>-</c:otherwise>
+		            </c:choose>
+		          </td>                                  <!-- ⑬ -->
+		          <td>
+		            <c:choose>
+		              <c:when test="${row.points[2] != null}">${row.points[2]}</c:when>
+		              <c:otherwise>-</c:otherwise>
+		            </c:choose>
+		          </td>                                  <!-- ⑭ -->
+		        </tr>
+		      </c:forEach>
+		    </tbody>
+		  </table>
+		</c:if>
 	</c:param>
-	<c:if test="${f == 'sj'}">
-	  <!-- 科目名 -->
-	  <div class="fw-bold mb-2">
-	    科目：<c:forEach var="subject" items="${subjectList}">
-	      <c:if test="${subject.cd == f3}">
-	        ${subject.name}
-	      </c:if>
-	    </c:forEach>
-	  </div>
-
-	  <!-- 成績一覧テーブル -->
-	  <table class="table table-bordered table-striped">
-	    <thead class="table-secondary">
-	      <tr>
-	        <th>入学年度</th>  <!-- ③ -->
-	        <th>クラス</th>    <!-- ④ -->
-	        <th>学生番号</th>  <!-- ⑤ -->
-	        <th>氏名</th>      <!-- ⑥ -->
-	        <th>1回</th>       <!-- ⑦ -->
-	        <th>2回</th>       <!-- ⑧ -->
-	      </tr>
-	    </thead>
-	    <tbody>
-	      <c:forEach var="row" items="${subjectScoreList}">
-	        <tr>
-	          <td>${row.entYear}</td>                <!-- ⑨ -->
-	          <td>${row.classNum}</td>               <!-- ⑩ -->
-	          <td>${row.studentNo}</td>              <!-- ⑪ -->
-	          <td>${row.studentName}</td>            <!-- ⑫ -->
-	          <td>
-	            <c:choose>
-	              <c:when test="${row.points[1] != null}">${row.points[1]}</c:when>
-	              <c:otherwise>-</c:otherwise>
-	            </c:choose>
-	          </td>                                  <!-- ⑬ -->
-	          <td>
-	            <c:choose>
-	              <c:when test="${row.points[2] != null}">${row.points[2]}</c:when>
-	              <c:otherwise>-</c:otherwise>
-	            </c:choose>
-	          </td>                                  <!-- ⑭ -->
-	        </tr>
-	      </c:forEach>
-	    </tbody>
-	  </table>
-	</c:if>
-
 </c:import>
+

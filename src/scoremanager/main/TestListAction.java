@@ -35,7 +35,7 @@ public class TestListAction extends Action {
         Teacher teacher = (Teacher) request.getSession().getAttribute("user");
         if (teacher == null || teacher.getSchool() == null) {
             request.setAttribute("error", "ログイン情報が取得できませんでした。再ログインしてください。");
-            request.getRequestDispatcher("/view/error.jsp").forward(request, response);
+            request.getRequestDispatcher("error.jsp").forward(request, response);
             return;
         }
         String schoolCd = teacher.getSchool().getCd();
@@ -51,7 +51,7 @@ public class TestListAction extends Action {
         }
         request.setAttribute("yearList", yearList);
 
-        // 4. 検索処理の分岐
+        // 4. 検索処理の分岐　
         if (f4 != null && !f4.trim().isEmpty()) {
             // ◆ 学生番号検索
             Student student = new Student();
