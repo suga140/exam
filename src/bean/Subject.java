@@ -11,7 +11,7 @@ public class Subject extends User implements Serializable {
 	/**
 	 * パスワード:String
 	 */
-	private String school;
+	private School school;
 
 	/**
 	 * 教員名:String
@@ -34,11 +34,11 @@ public class Subject extends User implements Serializable {
 		this.cd = cd;
 	}
 
-	public String getSchool() {
+	public School getSchool() {
 		return school;
 	}
 
-	public void setSchool(String school) {
+	public void setSchool(School school) {
 		this.school = school;
 	}
 

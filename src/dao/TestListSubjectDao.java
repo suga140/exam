@@ -12,29 +12,36 @@ import bean.School;
 import bean.TestListSubject;
 
 public class TestListSubjectDao extends Dao {
-    private String baseSql = "SELECT st.ent_year, st.student_no, st.student_name, st.class_num, " +
-                             "ts.subject_cd, ts.num, ts.point " +
-                             "FROM students st " +
-                             "JOIN test_scores ts ON st.student_no = ts.student_no " +
-                             "WHERE st.ent_year = ? AND st.class_num = ? AND ts.subject_cd = ? AND st.school_cd = ?";
+
+    private String baseSql =
+        "SELECT st.ent_year, st.no AS student_no, st.name, st.class_num, " +
+        "ts.subject_cd, ts.no AS test_num, ts.point " +
+        "FROM student st " +
+        "JOIN test ts ON st.no = ts.student_no " +
+        "WHERE st.ent_year = ? AND st.class_num = ? AND ts.subject_cd = ? AND st.school_cd = ?";
 
     public List<TestListSubject> postFilter(ResultSet rs) throws Exception {
         Map<String, TestListSubject> map = new LinkedHashMap<>();
         while (rs.next()) {
             String studentNo = rs.getString("student_no");
+
+            // すでにMapにあるか確認
             TestListSubject subject = map.get(studentNo);
             if (subject == null) {
                 subject = new TestListSubject();
                 subject.setEntYear(rs.getInt("ent_year"));
                 subject.setStudentNo(studentNo);
-                subject.setStudentName(rs.getString("student_name"));
+                subject.setStudentName(rs.getString("name"));
                 subject.setClassNum(rs.getString("class_num"));
                 subject.setPoints(new java.util.HashMap<>());
                 map.put(studentNo, subject);
             }
-            int num = Integer.parseInt(rs.getString("num"));
+
+            // 点数情報をMapに追加（テスト番号をキーに）
+            int testNum = rs.getInt("test_num");
             int point = rs.getInt("point");
-            subject.putPoint(num, point);
+
+            subject.putPoint(testNum, point);
         }
         return new ArrayList<>(map.values());
     }
@@ -52,10 +59,10 @@ public class TestListSubjectDao extends Dao {
             try (ResultSet rs = stmt.executeQuery()) {
                 list = postFilter(rs);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-
 }

@@ -2,30 +2,32 @@ package scoremanager.main;
 
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.School;
 import bean.Subject;
 import bean.Teacher;
+import dao.SchoolDao;
 import dao.SubjectDao;
 import tool.Action;
 
 public class SubjectListAction extends Action {
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        try {
-            Teacher teacher = (Teacher) request.getSession().getAttribute("user");
-            String schoolCd = teacher.getSchool().getCd();
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        // セッションからログインユーザー（Teacher）を取得
+        Teacher teacher = (Teacher) request.getSession().getAttribute("user");
 
-            SubjectDao dao = new SubjectDao();
-            List<Subject> subjects = dao.filter(schoolCd);
+        // Teacher → Schoolコード → Schoolオブジェクトを取得
+        String schoolCd = teacher.getSchool().getCd();
+        SchoolDao schoolDao = new SchoolDao();
+        School school = schoolDao.get(schoolCd);
 
-            request.setAttribute("subjectList", subjects);
-            RequestDispatcher dispatcher = request.getRequestDispatcher("subjectList.jsp");
-            dispatcher.forward(request, response);
-        } catch (Exception e) {
-            throw new ServletException(e);
-        }
+        // 科目一覧を取得（filter）
+        SubjectDao subjectDao = new SubjectDao();
+        List<Subject> subjectlist = subjectDao.filter(school);
+
+        // リクエストにセットして画面へ
+        request.setAttribute("subjectlist", subjectlist);
+        request.getRequestDispatcher("../main/subject_list.jsp").forward(request, response);
     }
 }

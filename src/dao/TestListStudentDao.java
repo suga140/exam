@@ -10,18 +10,18 @@ import bean.Student;
 import bean.TestListStudent;
 
 public class TestListStudentDao extends Dao {
-    private String baseSql = "SELECT s.subject_name, s.subject_cd, ts.num, ts.point " +
-                             "FROM test_scores ts " +
-                             "JOIN subjects s ON ts.subject_cd = s.subject_cd " +
+    private String baseSql = "SELECT s.name, s.cd, ts.no, ts.point " +
+                             "FROM test ts " +
+                             "JOIN subject s ON ts.subject_cd = s.cd " +
                              "WHERE ts.student_no = ?";
 
     public List<TestListStudent> postFilter(ResultSet rs) throws Exception {
         List<TestListStudent> list = new ArrayList<>();
         while (rs.next()) {
             TestListStudent tls = new TestListStudent();
-            tls.setSubjectName(rs.getString("subject_name"));
-            tls.setSubjectCd(rs.getString("subject_cd"));
-            tls.setNum(rs.getString("num"));
+            tls.setSubjectName(rs.getString("name"));
+            tls.setSubjectCd(rs.getString("cd"));
+            tls.setNo(rs.getString("no"));
             tls.setPoint(rs.getInt("point"));
             list.add(tls);
         }

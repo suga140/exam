@@ -78,26 +78,26 @@
     </div>
 
     <div class="register-link">
-        <a href="subjectInsert.jsp" class="link-button">新規登録</a>
+        <a href="subject_create.jsp" class="link-button">新規登録</a>
     </div>
 
     <table>
-        <tr>
-            <th>科目コード</th>
-            <th>科目名</th>
-        </tr>
-        <c:forEach var="subject" items="${subjectList}">
-            <tr>
-                <td>${subject.cd}</td>
-                <td>
-                    ${subject.name}
-                    <span class="action-links">
-                        <a href="subjectUpdate.jsp?cd=${subject.cd}">変更</a>
-                        <a href="subjectDelete.jsp?cd=${subject.cd}">削除</a>
-                    </span>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
+	  <tr>
+	    <th>科目コード</th>
+	    <th>科目名</th>
+	  </tr>
+	  <c:forEach var="subject" items="${subjectlist}">
+	    <tr>
+	      <td>${subject.cd}</td>
+	      <td>
+	        ${subject.name}
+	        <span class="action-links">
+	          <a href="SubjectUpdate.action?cd=${subject.cd}">変更</a>
+	          <a href="SubjectDelete.action?cd=${subject.cd}">削除</a>
+	        </span>
+	      </td>
+	    </tr>
+	  </c:forEach>
+	</table>
 </c:param>
 </c:import>

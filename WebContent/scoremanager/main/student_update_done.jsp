@@ -13,9 +13,11 @@
     <section class="me-4">
       <h2 class="h3 mb-3 fw-norma bg-secondary bg-opacity-10 py-2 px-4">学生情報変更</h2>
 
-<h2>変更が完了しました</h2>
 
-<a href="/scoremanager/main/StudentList.action">戻る</a>
+    <p class="text-center" style="background-color:#66CC99">
+      変更が完了しました
+    </p>
+      <a href="StudentList.action">学生一覧</a>
     </section>
   </c:param>
 </c:import>

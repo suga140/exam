@@ -148,7 +148,7 @@ public class StudentDao extends Dao {
 
             String sql = "INSERT INTO student (no, name, ent_year, class_num, is_attend, school_cd) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement st = con.prepareStatement(sql);
-            String no = getNo(student.getName());
+            String no = student.getNo();
 
             st.setString(1, no);
             st.setString(2, student.getName());
@@ -183,25 +183,4 @@ public class StudentDao extends Dao {
         s.setSchool(school);
         return s;
     }
-    // 学生更新
-    public void update(Student student) throws Exception {
-        Connection con = getConnection();
-        PreparedStatement st = null;
-        try {
-            st = con.prepareStatement(
-                "UPDATE student SET name=?, class_num=?, is_attend=? WHERE ent_year=? AND no=?"
-            );
-            st.setString(1, student.getName());
-            st.setString(2, student.getClassNum());
-            st.setBoolean(3, student.isAttend());
-            st.setInt(4, student.getEntYear());
-            st.setString(5, student.getNo());
-
-            st.executeUpdate();
-        } finally {
-            if (st != null) st.close();
-            if (con != null) con.close();
-        }
-    }
-
 }

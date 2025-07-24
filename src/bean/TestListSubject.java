@@ -49,8 +49,8 @@ public class TestListSubject {
         this.points = points;
     }
 
-    public int getPoint(String key) {
-        return points.getOrDefault(Integer.parseInt(key), 0);
+    public String getPoint(int key) {
+        return String.valueOf(points.getOrDefault(key, 0));
     }
 
     public void putPoint(int key, int value) {

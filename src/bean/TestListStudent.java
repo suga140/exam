@@ -3,7 +3,7 @@ package bean;
 public class TestListStudent {
     private String subjectName;
     private String subjectCd;
-    private String num;
+    private String no;
     private int point;
 
     public String getSubjectName() {
@@ -22,12 +22,12 @@ public class TestListStudent {
         this.subjectCd = subjectCd;
     }
 
-    public String getNum() {
-        return num;
+    public String getNo() {
+        return no;
     }
 
-    public void setNum(String num) {
-        this.num = num;
+    public void setNo(String no) {
+        this.no = no;
     }
 
     public int getPoint() {
